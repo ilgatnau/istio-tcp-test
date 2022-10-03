@@ -18,3 +18,38 @@ spec:
       istio-ingressgateway:
         # Enable gateway injection
         injectionTemplate: gateway
+        ports:
+          # Default port list copied from the original subchart values
+          # Ref: https://github.com/istio/istio/blob/release-1.2/install/kubernetes/helm/istio/charts/gateways/values.yaml
+          #      (the ports below override the default and do not get merged, and thus need to be copied here)
+          - port: 15020
+            targetPort: 15020
+            name: status-port
+          - port: 80
+            targetPort: 80
+            name: http2
+            nodePort: 31380
+          - port: 443
+            name: https
+            nodePort: 31390
+          - port: 15029
+            targetPort: 15029
+            name: https-kiali
+          - port: 15030
+            targetPort: 15030
+            name: https-prometheus
+          - port: 15031
+            targetPort: 15031
+            name: https-grafana
+          - port: 15032
+            targetPort: 15032
+            name: https-tracing
+            # This is the port where sni routing happens
+          - port: 15443
+            targetPort: 15443
+            name: tls
+          ##=== Additional Ports =======================##
+          - port: 34100
+            targetPort: 34100
+            name: tls
+          ##____________________________________________##
